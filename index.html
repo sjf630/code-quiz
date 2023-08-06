@@ -2,42 +2,103 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/style.css">
-  <title>Document</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Code Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/style.css" />
 </head>
 
+<header>
+    <div class="center-content">
+        <h1><b>Coding Quiz Challenge</b></h1>
+        <h4>A Simple Quiz</h4>
+    </div>
+</header>
+
 <body>
-  <div class="quiz-wrapper">
-    <div id="timer">
-    
-    </div>
-    <div class="opening-message">
-      <h1>
-        Code Quiz Challenge
-      </h1>
-      <h2>
-        Try to answer the following questions within the time limit
-      </h2>
-      <button id="start">
-        Start
-      </button>
-    </div>
-    <div class="quiz-container">
-      <div class="question-container" id="question">
+    <section id="start-section">
+        <div class="center-content">
+            <button class="adjust">Start!</button>
+        </div>
+    </section>
 
-      </div>
-      <div class="option-container">
-        <button class="option"id="answer-a"></button>
-        <button class="option"id="answer-b"></button>
-        <button class="option"id="answer-c"></button>
-        <button class="option"id="answer-d"></button>
-      </div>
+    <div class="center-content">
+        <h3>Time left: <span id="timer">60</span> seconds</h3>
     </div>
-  </div>
-  <script src="./assets/index.js"></script>
+
+    <section id="quiz-container" style="display: none;">
+        <div id="q1" class="question">
+            <h2>Which sport is the oldest?</h2>
+            <div class="button-container center-content">
+                <button class="correct-answer">Wrestling</button>
+                <button>Soccer</button>
+                <button>Gymnastics</button>
+                <button>Swimming</button>
+            </div>
+        </div>
+
+        <div id="q2" class="question">
+            <h2>What year did women begin to compete in US sports?</h2>
+            <div class="button-container center-content">
+                <button>1921</button>
+                <button>1945</button>
+                <button>1963</button>
+                <button class="correct-answer">1896</button>
+            </div>
+        </div>
+
+        <div id="q3" class="question">
+            <h2>What is the most played sport worldwide?</h2>
+            <div class="button-container center-content">
+                <button>Basketball</button>
+                <button class="correct-answer">Soccer</button>
+                <button>Lacrosse</button>
+                <button>Tennis</button>
+            </div>
+        </div>
+
+        <div id="q4" class="question">
+            <h2>What is the most popular sport featured in films?</h2>
+            <div class="button-container center-content">
+                <button class="correct-answer">Boxing</button>
+                <button>American Football</button>
+                <button>Running</button>
+                <button>Baseball</button>
+            </div>
+        </div>
+
+        <div id="q5" class="center-content question">
+            <h2>What sport was Nike founded on?</h2>
+            <div class="button-container center-content">
+                <button>Basketball</button>
+                <button class="correct-answer">Running</button>
+                <button>Boxing</button>
+                <button>Baseball</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="end-section" style="display: none;">
+        <div class="center-content">
+            <h2>All done!</h2>
+            <h3>Your final score is <span id="final-score"></span></h3>
+            <h4>Enter your initials:</h4>
+            <input type="text" id="initials-input">
+            <button id="submit-button">Submit</button>
+        </div>
+    </section>
+
+    <section id="highscores-section" style="display: none;">
+        <div class="center-content">
+            <h2>Highscores</h2>
+            <ul id="highscores-list"></ul>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Wf5FsxNQf3z6tu7J+X3MjsXqf1fM27c+c6BXMR+BX2WhDxJn0p+yfPb+7Xz68xVJ" crossorigin="anonymous"></script>
+    <script src="./assets/script.js"></script>
 </body>
-
-</html>

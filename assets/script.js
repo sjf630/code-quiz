@@ -1,146 +1,163 @@
-// Define quiz questions and answers
-var questions = [  
-  {   question: "What is the output of the following code: console.log(5 + '5');",        choices: ["A. 55", "B. 10", "C. '55'", "D. '10'"],
-      answer: "C. '55'"
-  },
-  {
-      question: "What is the keyword used to define a function in JavaScript?",
-      choices: ["A. var", "B. console", "C. function", "D. array"],
-      answer: "C. function"
-  },
-  {
-      question: "What is the difference between '==' and '===' operators in JavaScript?",
-      choices: ["A. The '==' and '===' operators in JavaScript are used to compare values, but they behave differently.", "B. These === & ++ are correct", "C. JavaScript only uses console log", "D. The '===' operator is called the strict equality operator and it also checks if the values on both sides are un-equal."],
-      answer: "A. The '==' and '===' operators in JavaScript are used to compare values, but they behave differently."
-  },
-  {
-      question: "How do you loop through an array in JavaScript?",
-      choices: ["A. For Loop", "B. Margin", "C. Jump", "D. copy"],
-      answer: "A. For Loop"
-  },
-  {
-      question: "What is the purpose of the 'return' statement in a JavaScript function?",
-      choices: ["A. 'return' statement is a powerful tool in JavaScript that allows you to specify the value only", "B. The 'return' statement in a JavaScript function is used to specify the value that the function should return when it's called.", "C. Return to the next line", "D. Never return to the next function."],
-      answer: "B. The 'return' statement in a JavaScript function is used to specify the value that the function should return when it's called."
+document.addEventListener("DOMContentLoaded", function () {
+  const startSection = document.getElementById("start-section");
+  const quizContainer = document.getElementById("quiz-container");
+  const endSection = document.getElementById("end-section");
+  const highscoresSection = document.getElementById("highscores-section");
+  const timerElement = document.getElementById("timer");
+  const initialsInput = document.getElementById("initials-input");
+  const submitButton = document.getElementById("submit-button");
+  const highscoresList = document.getElementById("highscores-list");
+
+  const questions = [
+      {
+          question: "Which sport is the oldest?",
+          answers: [
+              { text: "Wrestling", correct: true },
+              { text: "Soccer", correct: false },
+              { text: "Gymnastics", correct: false },
+              { text: "Swimming", correct: false },
+          ],
+      },
+      {
+          question: "What year did women begin to compete in US sports?",
+          answers: [
+              { text: "M1921", correct: false },
+              { text: "1945", correct: false },
+              { text: "1963", correct: false },
+              { text: "1896", correct: true },
+          ],
+      },
+      {
+          question: "What is the most played sport worldwide?",
+          answers: [
+              { text: "Basketball", correct: false },
+              { text: "Soccer", correct: true },
+              { text: "Lacrosse", correct: false },
+              { text: "Tennis", correct: false },
+          ],
+      },
+      {
+          question: "What is the most popular sport featured in films?",
+          answers: [
+              { text: "Boxing", correct: true },
+              { text: "American Football", correct: false },
+              { text: "Running", correct: false },
+              { text: "Baseball", correct: false },
+          ],
+      },
+      {
+          question: "What sport was Nike founded on?",
+          answers: [
+              { text: "Basketball", correct: false },
+              { text: "Running", correct: true },
+              { text: "Boxing", correct: false },
+              { text: "Baseball", correct: false },
+          ],
+      },
+  ];
+
+  const questionTime = 15;
+  let currentQuestionIndex;
+  let timeLeft;
+  let timerInterval;
+
+  function startQuiz() {
+      startSection.style.display = "none";
+      quizContainer.style.display = "block";
+      currentQuestionIndex = 0;
+      timeLeft = 60;
+      timerElement.textContent = timeLeft;
+
+      startTimer();
+
+      showQuestion();
   }
-];
 
+  function startTimer() {
+      timerInterval = setInterval(function () {
+          timeLeft--;
+          timerElement.textContent = timeLeft;
 
-// Set initial values for game variables
-var currentQuestion = 0;
-var score = 0;
-var timerInterval;
-var timeLeft = 60;
-
-// Get elements from HTML
-var startBtn = document.querySelector("#start-btn");
-var quizContainer = document.querySelector("#quiz");
-var questionElement = document.querySelector("#question");
-var choicesElement = document.querySelector("#choices");
-var scoreElement = document.querySelector("#score");
-var questionNumElement = document.querySelector("#question-num");
-var gameOverElement = document.querySelector("#game-over");
-var finalScoreElement = document.querySelector("#final-score");
-var initialsElement = document.querySelector("#initials");
-var submitScoreButton = document.querySelector("#submit-score");
-
-var resultsContainer = document.querySelector("#results");
-
-startBtn.addEventListener("click", startQuiz)
-
-// Function to start the quiz
-function startQuiz() {
-  // Hide the start button
-  document.querySelector("#start-btn").style.display = "none";
-
-  // Show the quiz container
-  quizContainer.style.display = "block";
-
-  // Display the first question
-  displayQuestion();
-
-  // Display the initial time
-  document.querySelector(".timer-count").textContent = timeLeft;
-
-  // Start the timer
-  var timerInterval = setInterval(
-      function() {
-      // Update the time left
-      timeLeft--;
-
-      // Display the updated time
-      document.querySelector(".timer-count").textContent = timeLeft;
-
-      // End the quiz if time runs out
-      if (timeLeft <= 0) {
-          timeLeft = 0;
-          endQuiz();
-          clearInterval(timerInterval);
-      }
-  }, 1000);
-}
-
-// Function to display the current question and choices
-function displayQuestion() {
-  // Clear the choices element
-  choicesElement.innerHTML = "";
-
-  // Display the current question
-  questionElement.textContent = questions[currentQuestion].question;
-
-  // Display the choices for the current question
-  for (var i = 0; i < questions[currentQuestion].choices.length; i++) {
-      var choice = questions[currentQuestion].choices[i];
-      var choiceElement = document.createElement("button");
-      choiceElement.textContent = choice;
-      choiceElement.setAttribute("class", "choice");
-      choicesElement.appendChild(choiceElement);
-
-      // Add an event listener to each answer button
-      choiceElement.addEventListener("click", checkAnswer) }
-
-      function checkAnswer(event){ 
-
-          var answerCheck = event.target 
-          // Check if the answer is correct and increment the score if it is
-          if (answerCheck.innerText === questions[currentQuestion].answer) {
-              score++;
-              console.log(score);
-          }
-          if (answerCheck.innerText != questions[currentQuestion].answer) {
-              timeLeft -= 15;
-              console.log(answerCheck.innerText);
-              console.log(questions[currentQuestion].answer);
-          }
-
-          // Move on to the next question
-          currentQuestion++;
-
-          // Check if there are any more questions left
-          if (currentQuestion < questions.length) {
-              // If there are, display the next question
-              displayQuestion();
-          } else {
-              // If there aren't, end the quiz
+          if (timeLeft <= 0) {
+              clearInterval(timerInterval);
               endQuiz();
           }
-      };
+      }, 1000);
   }
 
-function endQuiz() {
-  // Hide the quiz section
-  var quizElement = document.getElementById("quiz");
-  if (quizElement) {
-      quizElement.style.display = "none";
+  function showQuestion() {
+      const questionElement = document.getElementById("q" + (currentQuestionIndex + 1));
+      questionElement.style.display = "block";
+
+      const buttons = questionElement.getElementsByClassName("button-container")[0].getElementsByTagName("button");
+      for (let i = 0; i < buttons.length; i++) {
+          buttons[i].addEventListener("click", handleAnswerClick);
+      }
   }
 
-  // Display the results section
-  var resultsElement = document.getElementById("results-container");
-  resultsElement.style.display = "block";
+  function handleAnswerClick(event) {
+      const selectedButton = event.target;
+      const currentQuestion = questions[currentQuestionIndex];
+      const selectedAnswer = currentQuestion.answers.find((answer) => answer.text === selectedButton.textContent);
 
-  // Display the score
-  var scoreElement = document.getElementById("game-over");
-  scoreElement.textContent = "Your score: " + score;
+      if (selectedAnswer.correct) {
+          selectedButton.classList.add("correct-answer");
+      } else {
+          selectedButton.classList.add("wrong-answer");
+          timeLeft -= 10;
+          if (timeLeft < 0) {
+              timeLeft = 0;
+          }
+      }
 
-  
-}
+      currentQuestionIndex++;
+
+      if (currentQuestionIndex < questions.length) {
+          setTimeout(showNextQuestion, 1000);
+      } else {
+          setTimeout(endQuiz, 1000);
+      }
+  }
+
+  function showNextQuestion() {
+      const previousQuestionElement = document.getElementById("q" + currentQuestionIndex);
+      previousQuestionElement.style.display = "none";
+
+      showQuestion();
+  }
+
+  function endQuiz() {
+      clearInterval(timerInterval);
+
+      quizContainer.style.display = "none";
+      endSection.style.display = "block";
+      document.getElementById("final-score").textContent = timeLeft;
+
+      submitButton.addEventListener("click", function () {
+          const initials = initialsInput.value.trim();
+          if (initials !== "") {
+              const scoreEntry = initials + " - " + timeLeft;
+              highscoresList.innerHTML += "<li>" + scoreEntry + "</li>";
+
+              initialsInput.value = "";
+
+              endSection.style.display = "none";
+              highscoresSection.style.display = "block";
+          }
+      });
+  }
+
+  function clearHighscores() {
+      highscoresList.innerHTML = "";
+  }
+
+  function init() {
+      const startButton = document.querySelector("button.adjust");
+      startButton.addEventListener("click", startQuiz);
+
+      const clearButton = document.getElementById("clear-button");
+      clearButton.addEventListener("click", clearHighscores);
+  }
+
+  init();
+});

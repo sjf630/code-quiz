@@ -8,6 +8,6 @@ Additionally, the user interface of the quiz is be designed to be responsive.
 
 
 
-![Screenshot](/images/screenshot.jpeg)
+
 
 
